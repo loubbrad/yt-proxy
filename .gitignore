@@ -1,0 +1,11 @@
+# WireGuard files contain private keys.
+configs/**
+!configs/.gitkeep
+
+fleet.yaml
+compose.generated.yaml
+endpoints*.yaml
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
