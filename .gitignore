@@ -2,7 +2,6 @@
 configs/**
 !configs/.gitkeep
 
-fleet.yaml
 compose.generated.yaml
 endpoints*.yaml
 .venv/

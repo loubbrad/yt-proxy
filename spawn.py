@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -47,7 +48,7 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=root / "compose.generated.yaml",
     )
-    parser.add_argument("--project-name", default=DEFAULT_PROJECT)
+    parser.add_argument("--project-name", default=f"{DEFAULT_PROJECT}-{os.getuid()}")
     parser.add_argument(
         "--bind-host",
         default="127.0.0.1",
@@ -139,10 +140,7 @@ def main() -> None:
 
 def load_fleet(path: Path) -> dict[str, object]:
     if not path.is_file():
-        raise SystemExit(
-            f"Fleet file not found: {path}\n"
-            "Copy fleet.example.yaml to fleet.yaml and edit it first."
-        )
+        raise SystemExit(f"Fleet file not found: {path}")
     data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     if not isinstance(data, dict):
         raise SystemExit(f"Fleet file must contain a YAML mapping: {path}")

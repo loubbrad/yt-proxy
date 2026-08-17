@@ -1,8 +1,0 @@
-# One route becomes one container and one simultaneously active VPN tunnel.
-# Files within a route directory are alternatives used by /rotate.
-host_proxy_port_start: 8888
-host_admin_port_start: 9888
-
-routes:
-  - name: vpn-1
-    config_dir: provider/route-1

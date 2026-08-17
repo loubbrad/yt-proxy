@@ -18,7 +18,6 @@ Install Docker Compose and [uv](https://docs.astral.sh/uv/), then:
 
 ```bash
 uv sync
-cp fleet.example.yaml fleet.yaml
 ```
 
 Download WireGuard `.conf` files from your VPN provider and arrange them by
@@ -30,9 +29,12 @@ configs/provider/route-1/server-b.conf
 configs/provider/route-2/server-a.conf
 ```
 
-Configure matching routes in `fleet.yaml`:
+Configure the host ports and matching routes in `fleet.yaml`:
 
 ```yaml
+host_proxy_port_start: 8888
+host_admin_port_start: 9888
+
 routes:
   - name: vpn-1
     config_dir: provider/route-1
@@ -42,6 +44,10 @@ routes:
 
 Here, `vpn-1` and `vpn-2` can run simultaneously. Calling `/rotate` on `vpn-1`
 switches between the configs in `provider/route-1`.
+
+If another user runs a fleet on the same machine, choose different proxy and
+admin port ranges. Compose project names include the current user ID by default,
+so users do not manage each other's containers.
 
 ### Example: Proton VPN
 
